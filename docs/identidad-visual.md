@@ -79,6 +79,6 @@ Evocador y directo, con el lema "Fabricantes de sensaciones, nuestro lenguaje es
 | Productos flotantes con parallax, botones magnéticos, imagen que sigue al cursor, inclinación 3D | Varias páginas |
 | Transición de tinta entre páginas | Chrome, Edge y Safari recientes |
 
-**Accesibilidad:** con "reducir movimiento" la web se muestra estática y ofrece un botón para activar los efectos. El pie permite desactivarlos. Todo el texto está en el HTML y la web funciona sin JavaScript.
+**Accesibilidad:** por decisión del cliente, los efectos se muestran también con "reducir movimiento". El pie permite desactivarlos. Todo el texto está en el HTML y la web funciona sin JavaScript.
 
 **Librerías locales:** GSAP y ScrollTrigger 3.13, Lenis 1.3. La versión anterior está en `versiones/v1/`.

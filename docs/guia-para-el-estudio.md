@@ -91,7 +91,7 @@ node src/build.mjs
 node tools/serve.mjs site 4173
 ```
 
-Abre http://localhost:4173/ca/index.html. Para ver los efectos aunque el sistema tenga activado "reducir movimiento", añade `?fx=on`.
+Abre http://localhost:4173/ca/index.html. Los efectos se ven siempre, también con "reducir movimiento" activado en el sistema.
 
 **Modos del generador:**
 
@@ -117,12 +117,12 @@ Todo el contenido está en el HTML y se lee sin JavaScript. Los efectos se suman
 
 1. **Script en `<head>` (`FX_BOOT` en `build.mjs`).** Se ejecuta antes de pintar. Añade al `<html>`:
    - `js` siempre.
-   - `fx` si no hay "reducir movimiento", si `localStorage.ambi-fx` vale `on` o si la URL lleva `?fx=on`.
-   - `prefers-still` si el sistema pide reducir movimiento.
+   - `fx` siempre, salvo que el visitante los haya apagado (`localStorage.ambi-fx` vale `off`) o la URL lleve `?fx=off`. Decisión del cliente: los efectos se ven aunque el sistema pida reducir movimiento.
+   - `prefers-still` si el sistema pide reducir movimiento (solo informativo).
 2. **`main.js`** añade `fx-ready` cuando GSAP está cargado. Sin `fx` o sin GSAP, la página se queda estática y completa.
 3. **`fluid.js`** se carga 500 ms después de `load`, salvo con ahorro de datos. Si arranca, añade `fluid` y lanza el evento `ambi-fluid`.
 4. **Controles para el visitante:**
-   - Píldora "Activar efectes" (`.fx-pill`) si su sistema pide reducir movimiento. Se oculta al hacer scroll.
+   - Píldora "Activar efectes" (`.fx-pill`) si los ha apagado y su sistema pide reducir movimiento. Se oculta al hacer scroll.
    - Botón "Desactivar efectes" (`.fx-toggle`) en el pie. Guarda la preferencia en `localStorage`.
 
 Las secciones con la clase `.smoke` tienen fondo transparente, y el humo se ve a través de ellas. Sin fluido, `html:not(.fluid)` les pone fondo negro.
@@ -271,7 +271,7 @@ El detalle está en [seo-y-publicacion.md](seo-y-publicacion.md). En resumen:
 
 ## Accesibilidad
 
-- Se respeta "reducir movimiento" y el visitante puede activar o desactivar los efectos.
+- Por decisión del cliente, los efectos no se apagan con "reducir movimiento". El visitante puede desactivarlos con el botón del pie.
 - Los textos partidos en letras conservan `aria-label` con la frase completa.
 - Enlace para saltar al contenido, foco visible, pestañas accesibles en la pirámide y menú con `aria-expanded`.
 - Contraste mínimo de 4,5:1. Por eso existe `#466a0b` para el verde sobre gris.

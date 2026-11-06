@@ -387,8 +387,8 @@ function jsonLd(L, key) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 }
 
-// Los efectos respetan "reducir movimiento" salvo que el visitante los active.
-const FX_BOOT = `(function(){var h=document.documentElement,s=null;h.classList.add('js');try{s=localStorage.getItem('ambi-fx')}catch(e){}var q=location.search.match(/[?&]fx=(on|off)/);if(q){s=q[1];try{localStorage.setItem('ambi-fx',s)}catch(e){}}var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(r)h.classList.add('prefers-still');if(s==='on'||(!r&&s!=='off'))h.classList.add('fx');addEventListener('pagereveal',function(e){if(e.viewTransition&&!h.classList.contains('fx')){e.viewTransition.ready.catch(function(){});e.viewTransition.finished.catch(function(){});e.viewTransition.skipTransition()}})})()`;
+// Efectos siempre activos, también con "reducir movimiento". Solo se apagan con el botón del pie (o ?fx=off).
+const FX_BOOT = `(function(){var h=document.documentElement,s=null;h.classList.add('js');try{s=localStorage.getItem('ambi-fx')}catch(e){}var q=location.search.match(/[?&]fx=(on|off)/);if(q){s=q[1];try{localStorage.setItem('ambi-fx',s)}catch(e){}}var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(r)h.classList.add('prefers-still');if(s!=='off')h.classList.add('fx');addEventListener('pagereveal',function(e){if(e.viewTransition&&!h.classList.contains('fx')){e.viewTransition.ready.catch(function(){});e.viewTransition.finished.catch(function(){});e.viewTransition.skipTransition()}})})()`;
 
 function head(L, key, from, opts = {}) {
   const P = opts.page || L.pages[key];
